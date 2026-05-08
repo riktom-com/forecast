@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Forecast — Hunt &amp; Fish Activity Predictor | riktom.com</title>
+<meta name="description" content="Research-weighted 24-hour hunt and fish activity forecast for any location. Built on weather, solunar, moon phase, and front-passage data.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+  <a href="https://riktom.com" class="logo">rik<span>tom</span>.com</a>
+  <nav>
+    <a href="https://riktom.com">Home</a>
+    <a href="https://riktom.com/articles/">Articles</a>
+    <a href="https://riktom.com/about.html">About</a>
+  </nav>
+</header>
+
+<main>
+  <h1 id="page-title">24-Hour Activity Forecast</h1>
+  <p class="tagline" id="tagline">Research-weighted scoring. Built on Open-Meteo weather, USGS, and astronomical data.</p>
+
+  <div class="mode-toggle">
+    <button data-species="fish" class="active">🎣 Fishing</button>
+    <button data-species="hunt">🦌 Hunting</button>
+  </div>
+
+  <form id="loc-form">
+    <div class="loc-row">
+      <input type="number" id="lat" step="0.0001" placeholder="Latitude" value="30.9585" required>
+      <input type="number" id="lon" step="0.0001" placeholder="Longitude" value="-83.3777" required>
+      <button type="submit">Get forecast</button>
+    </div>
+    <button type="button" id="locate-me" class="secondary">📍 Use my location</button>
+  </form>
+
+  <div id="loading" hidden>Loading forecast…</div>
+  <div id="error" hidden></div>
+
+  <section id="results" hidden>
+    <div class="meta-row">
+      <div class="meta-card">
+        <div class="meta-label">Moon</div>
+        <div class="meta-value" id="moon">—</div>
+      </div>
+      <div class="meta-card">
+        <div class="meta-label">Sunrise / Sunset</div>
+        <div class="meta-value" id="sun">—</div>
+      </div>
+      <div class="meta-card">
+        <div class="meta-label">Conditions</div>
+        <div class="meta-value" id="condition">—</div>
+      </div>
+    </div>
+
+    <h2>Best Windows (next 24h)</h2>
+    <ul id="best-windows" class="windows"></ul>
+
+    <h2>Hourly Forecast</h2>
+    <div id="bars" class="bars"></div>
+
+    <h2>Factor Breakdown — <span id="best-hour">best hour</span></h2>
+    <div id="factors" class="factors"></div>
+
+    <p class="footer-note">
+      Scoring methodology weights factors by peer-reviewed research, not anecdote.
+      Fishing model is calibrated for South Georgia warm-water species (largemouth,
+      catfish, crappie, bream). Hunting model is tuned for whitetail deer movement.
+    </p>
+  </section>
+</main>
+
+<footer>
+  <p>&copy; 2026 riktom.com — Hahira, Georgia · <a href="https://riktom.com/privacy.html">Privacy</a></p>
+</footer>
+
+<script src="app.js"></script>
+</body>
+</html>

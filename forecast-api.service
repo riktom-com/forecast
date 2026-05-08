@@ -1,0 +1,14 @@
+[Unit]
+Description=riktom Forecast API (hunt + fish)
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/forecast/backend
+ExecStart=/opt/forecast/backend/.venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8004 --proxy-headers
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

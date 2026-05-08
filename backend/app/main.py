@@ -55,11 +55,14 @@ async def get_forecast(
     lat: float = Query(..., ge=-90, le=90),
     lon: float = Query(..., ge=-180, le=180),
     species: str = Query("fish", pattern="^(fish|hunt)$"),
+    hours: int = Query(24),
 ):
     if species not in profiles.PROFILES:
         raise HTTPException(400, f"Unknown species: {species}")
+    if hours not in (12, 24, 48, 72):
+        raise HTTPException(400, "hours must be one of: 12, 24, 48, 72")
     try:
         wx = await weather.fetch_weather(lat, lon)
     except Exception as e:
         raise HTTPException(502, f"Weather data unavailable: {e}")
-    return scoring.build_forecast(wx, species, lon)
+    return scoring.build_forecast(wx, species, lon, hours=hours)

@@ -88,6 +88,44 @@ h2 { font-size: 1.15rem; color: var(--green); margin: 2rem 0 0.75rem; font-weigh
 }
 .mode-toggle button:not(.active):hover { background: #ebe7df; color: var(--text); }
 
+/* ── window (look-ahead) toggle ── */
+.window-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+.window-label {
+  color: var(--muted);
+  font-size: 0.85rem;
+  margin-right: 0.3rem;
+}
+.window-toggle button {
+  background: var(--bg-card);
+  color: var(--muted);
+  border: 1px solid var(--border);
+  padding: 0.35rem 0.75rem;
+  border-radius: 5px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s;
+}
+.window-toggle button:hover { background: #ebe7df; color: var(--text); }
+.window-toggle button.active {
+  background: var(--green-mid);
+  color: #fff;
+  border-color: var(--green-mid);
+}
+
+.h2-suffix {
+  font-size: 0.85rem;
+  font-weight: 400;
+  color: var(--muted);
+  margin-left: 0.4rem;
+}
+
 /* ── form ── */
 form { margin-bottom: 1.5rem; }
 .loc-row {

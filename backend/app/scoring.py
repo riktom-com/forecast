@@ -70,7 +70,7 @@ def _factor_scores_hunt(hourly, i, hour, sr_h, ss_h, periods, m_score):
     }, fr_cond, None
 
 
-def build_forecast(weather: dict, profile_name: str, lon: float) -> dict:
+def build_forecast(weather: dict, profile_name: str, lon: float, hours: int = 24) -> dict:
     profile = profiles.PROFILES[profile_name]
     hourly = weather["hourly"]
     daily = weather["daily"]
@@ -98,16 +98,26 @@ def build_forecast(weather: dict, profile_name: str, lon: float) -> dict:
         0,
     )
 
+    today_date = now_local.date()
     scorer = _factor_scores_fish if profile_name == "fish" else _factor_scores_hunt
     rows = []
-    for i in range(start_idx, min(start_idx + 24, len(h_times))):
+    for i in range(start_idx, min(start_idx + hours, len(h_times))):
         t = h_times[i]
         hour = t.hour + t.minute / 60
         scores, condition, wt_est = scorer(hourly, i, hour, sr_h, ss_h, periods, m_score)
         total = composite(scores, profile.weights)
+        # Add day prefix for hours past today (matters for 48h/72h forecasts)
+        day_diff = (t.date() - today_date).days
+        time_str = t.strftime("%-I %p").lower()
+        if day_diff <= 0:
+            hour_label = time_str
+        elif day_diff == 1:
+            hour_label = f"Tmrw {time_str}"
+        else:
+            hour_label = t.strftime("%a") + " " + time_str
         rows.append({
             "time": t.isoformat(),
-            "hour_label": t.strftime("%-I %p").lower(),
+            "hour_label": hour_label,
             "score": total,
             "rating": rating(total),
             "factors": {k: round(scores[k], 1) for k in scores},
@@ -122,11 +132,15 @@ def build_forecast(weather: dict, profile_name: str, lon: float) -> dict:
             "water_temp_f": round(wt_est, 1) if wt_est else None,
         })
 
+    # Number of "best windows" to surface scales with the forecast length.
+    # Use the iso datetime as the spacing key (not just hour-of-day) so picks
+    # spread across multiple days for 48h/72h forecasts instead of clustering.
+    n_picks = {12: 3, 24: 4, 48: 6, 72: 8}.get(hours, 4)
     best_windows = []
-    seen_hours = set()
+    seen = []
     for r in sorted(rows, key=lambda x: x["score"], reverse=True):
-        h = datetime.fromisoformat(r["time"]).hour + datetime.fromisoformat(r["time"]).minute / 60
-        if not any(abs(h - sh) < 2 for sh in seen_hours):
+        rt = datetime.fromisoformat(r["time"])
+        if not any(abs((rt - st).total_seconds()) < 2 * 3600 for st in seen):
             best_windows.append({
                 "time": r["time"],
                 "hour_label": r["hour_label"],
@@ -134,8 +148,8 @@ def build_forecast(weather: dict, profile_name: str, lon: float) -> dict:
                 "rating": r["rating"],
                 "solunar": r["solunar"],
             })
-            seen_hours.add(h)
-        if len(best_windows) == 4:
+            seen.append(rt)
+        if len(best_windows) == n_picks:
             break
     best_windows.sort(key=lambda x: x["time"])
 

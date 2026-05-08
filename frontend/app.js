@@ -3,6 +3,7 @@
 const API_BASE = window.location.origin;
 const state = {
   species: 'fish',
+  hours: 24,
   lat: 30.9913,
   lon: -83.3727,
   resolvedName: 'Hahira, Georgia',
@@ -17,6 +18,16 @@ document.querySelectorAll('.mode-toggle button').forEach((btn) => {
     btn.classList.add('active');
     state.species = btn.dataset.species;
     updateTitle();
+    fetchForecast();
+  });
+});
+
+// ── window toggle ──
+document.querySelectorAll('.window-toggle button').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.window-toggle button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    state.hours = parseInt(btn.dataset.hours, 10);
     fetchForecast();
   });
 });
@@ -103,7 +114,7 @@ async function fetchForecast() {
   $('error').hidden = true;
   $('results').hidden = true;
   try {
-    const url = `${API_BASE}/api/forecast?lat=${state.lat}&lon=${state.lon}&species=${state.species}`;
+    const url = `${API_BASE}/api/forecast?lat=${state.lat}&lon=${state.lon}&species=${state.species}&hours=${state.hours}`;
     const res = await fetch(url);
     if (!res.ok) throw new Error(`API ${res.status}`);
     const data = await res.json();
@@ -142,16 +153,24 @@ function render(data) {
     windowsEl.appendChild(li);
   });
 
+  // Update section headings to reflect window
+  $('best-windows-suffix').textContent = `(next ${state.hours}h)`;
+  $('hourly-suffix').textContent = `(${state.hours}h)`;
+
   const barsEl = $('bars');
   barsEl.innerHTML = '';
-  data.hourly.forEach((h) => {
+  barsEl.style.gridTemplateColumns = `repeat(${data.hourly.length}, 1fr)`;
+  // For longer windows, label every Nth bar to prevent overlap
+  const labelEvery = data.hourly.length <= 24 ? 1 : data.hourly.length <= 48 ? 3 : 6;
+  data.hourly.forEach((h, idx) => {
     const bar = document.createElement('div');
     bar.className = 'bar';
     bar.title = `${h.hour_label} · Score ${h.score} (${h.rating}) · ${h.weather.air_f}°F · ${h.weather.wind_mph}mph wind · ${h.weather.cloud_pct}% cloud`;
     const fillHeight = Math.max(8, h.score * 1.4);
+    const label = idx % labelEvery === 0 ? h.hour_label : '';
     bar.innerHTML = `
       <div class="fill score-${h.rating.toLowerCase()}" style="height: ${fillHeight}px;"></div>
-      <div class="label">${h.hour_label}</div>
+      <div class="label">${label}</div>
     `;
     barsEl.appendChild(bar);
   });

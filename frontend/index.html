@@ -27,6 +27,14 @@
     <button data-species="hunt">🦌 Hunting</button>
   </div>
 
+  <div class="window-toggle">
+    <span class="window-label">Look ahead:</span>
+    <button data-hours="12">12h</button>
+    <button data-hours="24" class="active">24h</button>
+    <button data-hours="48">48h</button>
+    <button data-hours="72">72h</button>
+  </div>
+
   <form id="loc-form" autocomplete="off">
     <div class="loc-row">
       <input type="text" id="location-search" placeholder="Zip code, city, or address (e.g. 31632, Valdosta GA)" required>
@@ -57,10 +65,10 @@
       </div>
     </div>
 
-    <h2>Best Windows (next 24h)</h2>
+    <h2>Best Windows <span class="h2-suffix" id="best-windows-suffix">(next 24h)</span></h2>
     <ul id="best-windows" class="windows"></ul>
 
-    <h2>Hourly Forecast</h2>
+    <h2>Hourly Forecast <span class="h2-suffix" id="hourly-suffix">(24h)</span></h2>
     <div id="bars" class="bars"></div>
 
     <h2>Factor Breakdown — <span id="best-hour">best hour</span></h2>

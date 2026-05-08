@@ -33,7 +33,7 @@ async def fetch_weather(lat: float, lon: float, tz: str = "America/New_York") ->
             "temperature_2m_max", "temperature_2m_min",
         ]),
         "past_days": 2,
-        "forecast_days": 2,
+        "forecast_days": 4,
         "timezone": tz,
         "temperature_unit": "fahrenheit",
         "windspeed_unit": "mph",

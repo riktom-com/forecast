@@ -4,7 +4,7 @@ FastAPI app for the riktom.com hunt + fish forecast.
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
 
-from . import scoring, weather, profiles
+from . import scoring, weather, profiles, geocode
 
 app = FastAPI(
     title="riktom forecast",
@@ -37,6 +37,17 @@ async def list_profiles():
         }
         for name, p in profiles.PROFILES.items()
     }
+
+
+@app.get("/api/geocode")
+async def get_geocode(q: str = Query(..., min_length=1, max_length=200)):
+    try:
+        results = await geocode.lookup(q)
+    except Exception as e:
+        raise HTTPException(502, f"Geocoding service unavailable: {e}")
+    if not results:
+        raise HTTPException(404, f"No location matched '{q}'")
+    return {"results": results}
 
 
 @app.get("/api/forecast")

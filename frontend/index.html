@@ -27,13 +27,15 @@
     <button data-species="hunt">🦌 Hunting</button>
   </div>
 
-  <form id="loc-form">
+  <form id="loc-form" autocomplete="off">
     <div class="loc-row">
-      <input type="number" id="lat" step="0.0001" placeholder="Latitude" value="30.9585" required>
-      <input type="number" id="lon" step="0.0001" placeholder="Longitude" value="-83.3777" required>
+      <input type="text" id="location-search" placeholder="Zip code, city, or address (e.g. 31632, Valdosta GA)" required>
       <button type="submit">Get forecast</button>
     </div>
-    <button type="button" id="locate-me" class="secondary">📍 Use my location</button>
+    <div class="loc-actions">
+      <button type="button" id="locate-me" class="secondary">📍 Use my location</button>
+      <span class="resolved" id="resolved" hidden>📍 <span id="resolved-name"></span></span>
+    </div>
   </form>
 
   <div id="loading" hidden>Loading forecast…</div>

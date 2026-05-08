@@ -3,8 +3,9 @@
 const API_BASE = window.location.origin;
 const state = {
   species: 'fish',
-  lat: 30.9585,
-  lon: -83.3777,
+  lat: 30.9913,
+  lon: -83.3727,
+  resolvedName: 'Hahira, Georgia',
 };
 
 const $ = (id) => document.getElementById(id);
@@ -30,32 +31,73 @@ function updateTitle() {
   }
 }
 
-// ── form ──
-$('loc-form').addEventListener('submit', (e) => {
+// ── location search ──
+$('loc-form').addEventListener('submit', async (e) => {
   e.preventDefault();
-  state.lat = parseFloat($('lat').value);
-  state.lon = parseFloat($('lon').value);
-  fetchForecast();
+  const q = $('location-search').value.trim();
+  if (!q) return;
+  await geocodeAndFetch(q);
 });
 
+async function geocodeAndFetch(q) {
+  $('loading').hidden = false;
+  $('error').hidden = true;
+  $('results').hidden = true;
+  try {
+    const r = await fetch(`${API_BASE}/api/geocode?q=${encodeURIComponent(q)}`);
+    if (!r.ok) {
+      const body = await r.json().catch(() => ({}));
+      throw new Error(body.detail || `Geocode failed (${r.status})`);
+    }
+    const data = await r.json();
+    const hit = data.results[0];
+    state.lat = hit.latitude;
+    state.lon = hit.longitude;
+    state.resolvedName = hit.name;
+    showResolved();
+    await fetchForecast();
+  } catch (err) {
+    $('loading').hidden = true;
+    showError(err.message);
+  }
+}
+
+function showResolved() {
+  $('resolved-name').textContent = state.resolvedName;
+  $('resolved').hidden = false;
+}
+
+// ── geolocation ──
 $('locate-me').addEventListener('click', () => {
   if (!navigator.geolocation) {
-    showError('Geolocation not supported by this browser.');
+    showError('Geolocation is not supported by this browser.');
+    return;
+  }
+  // Modern browsers block geolocation on insecure (non-HTTPS) origins.
+  if (window.location.protocol !== 'https:' && window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+    showError('Browser geolocation requires HTTPS. Type a zip code, city, or address instead — or come back once SSL is enabled on this site.');
     return;
   }
   navigator.geolocation.getCurrentPosition(
     (pos) => {
       state.lat = pos.coords.latitude;
       state.lon = pos.coords.longitude;
-      $('lat').value = state.lat.toFixed(4);
-      $('lon').value = state.lon.toFixed(4);
+      state.resolvedName = `${state.lat.toFixed(4)}, ${state.lon.toFixed(4)}`;
+      showResolved();
       fetchForecast();
     },
-    (err) => showError('Could not get location: ' + err.message),
+    (err) => {
+      let msg = err.message;
+      if (err.code === 1) msg = 'Location permission denied. You can type a zip code, city, or address instead.';
+      else if (err.code === 2) msg = 'Could not determine your location. Try entering a zip or city instead.';
+      else if (err.code === 3) msg = 'Location request timed out. Try entering a zip or city instead.';
+      showError(msg);
+    },
+    { timeout: 10000, maximumAge: 60000 },
   );
 });
 
-// ── fetch ──
+// ── fetch forecast ──
 async function fetchForecast() {
   $('loading').hidden = false;
   $('error').hidden = true;
@@ -76,11 +118,11 @@ async function fetchForecast() {
 function showError(msg) {
   $('error').textContent = msg;
   $('error').hidden = false;
+  $('loading').hidden = true;
 }
 
 // ── render ──
 function render(data) {
-  // meta
   $('moon').textContent = `${data.moon.phase_name} (${data.moon.illumination_pct}% lit)`;
   const sr = formatTime(data.sun.sunrise);
   const ss = formatTime(data.sun.sunset);
@@ -88,7 +130,6 @@ function render(data) {
   const cond = data.hourly[0]?.condition || '—';
   $('condition').textContent = cond;
 
-  // best windows
   const windowsEl = $('best-windows');
   windowsEl.innerHTML = '';
   data.best_windows.forEach((w) => {
@@ -101,7 +142,6 @@ function render(data) {
     windowsEl.appendChild(li);
   });
 
-  // hourly bars
   const barsEl = $('bars');
   barsEl.innerHTML = '';
   data.hourly.forEach((h) => {
@@ -116,7 +156,6 @@ function render(data) {
     barsEl.appendChild(bar);
   });
 
-  // factor breakdown for best hour
   const best = data.hourly.reduce((a, b) => (a.score > b.score ? a : b));
   $('best-hour').textContent = best.hour_label;
   const fEl = $('factors');
@@ -150,4 +189,6 @@ function formatTime(iso) {
 
 // ── init ──
 updateTitle();
+$('location-search').value = 'Hahira, GA';
+showResolved();
 fetchForecast();

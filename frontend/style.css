@@ -96,17 +96,31 @@ form { margin-bottom: 1.5rem; }
   margin-bottom: 0.5rem;
   flex-wrap: wrap;
 }
-input[type="number"] {
+.loc-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+.resolved {
+  font-size: 0.9rem;
+  color: var(--green-mid);
+}
+input[type="text"], input[type="number"] {
   flex: 1;
-  min-width: 100px;
-  padding: 0.6rem 0.75rem;
+  min-width: 200px;
+  padding: 0.6rem 0.85rem;
   border: 1px solid var(--border);
   border-radius: 5px;
   font-size: 1rem;
   font-family: inherit;
   background: var(--bg-card);
 }
-input[type="number"]:focus { outline: 2px solid var(--green-light); outline-offset: -1px; border-color: var(--green-light); }
+input[type="text"]:focus, input[type="number"]:focus {
+  outline: 2px solid var(--green-light);
+  outline-offset: -1px;
+  border-color: var(--green-light);
+}
 button[type="submit"] {
   padding: 0.6rem 1.4rem;
   background: var(--green);

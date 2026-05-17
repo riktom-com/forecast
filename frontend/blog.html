@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blog — Hunt &amp; Fish Forecast | riktom.com</title>
+<meta name="description" content="Research-backed articles on hunt and fish activity forecasting — barometric pressure, solunar theory, front passage, and the science behind the scores.">
+<link rel="stylesheet" href="style.css">
+<style>
+  .blog-hero {
+    margin-bottom: 2.5rem;
+  }
+  .blog-hero h1 {
+    margin-bottom: 0.4rem;
+  }
+
+  .post-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .post-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.75rem 1.5rem;
+    align-items: start;
+  }
+
+  .post-card-body { min-width: 0; }
+
+  .post-meta {
+    font-size: 0.8rem;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin-bottom: 0.4rem;
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .post-tag {
+    background: var(--green);
+    color: #cce8d8;
+    padding: 0.15rem 0.55rem;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    text-transform: none;
+    letter-spacing: 0;
+    font-weight: 500;
+  }
+
+  .post-card h2 {
+    font-size: 1.15rem;
+    margin: 0 0 0.5rem;
+    color: var(--green);
+    line-height: 1.35;
+  }
+
+  .post-card h2 a {
+    color: inherit;
+  }
+  .post-card h2 a:hover { text-decoration: underline; }
+
+  .post-excerpt {
+    font-size: 0.92rem;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .read-more {
+    display: inline-block;
+    margin-top: 0.85rem;
+    font-size: 0.85rem;
+    color: var(--green-mid);
+    font-weight: 500;
+  }
+  .read-more:hover { text-decoration: underline; }
+
+  /* ── full post ── */
+  .post-full {
+    display: none;
+  }
+  .post-full.open {
+    display: block;
+  }
+
+  .post-full-header {
+    margin-bottom: 1.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .post-full-header h1 {
+    font-size: clamp(1.4rem, 3.5vw, 1.9rem);
+    margin-bottom: 0.5rem;
+  }
+
+  .post-body {
+    font-size: 0.97rem;
+    line-height: 1.8;
+    color: var(--text);
+    max-width: 680px;
+  }
+  .post-body p { margin-bottom: 1.1rem; }
+  .post-body h3 {
+    font-size: 1.05rem;
+    color: var(--green);
+    margin: 1.75rem 0 0.5rem;
+    font-weight: 600;
+  }
+  .post-body ul {
+    padding-left: 1.4rem;
+    margin-bottom: 1.1rem;
+  }
+  .post-body li { margin-bottom: 0.35rem; }
+  .post-body blockquote {
+    border-left: 3px solid var(--green-light);
+    padding: 0.5rem 1rem;
+    margin: 1rem 0;
+    color: var(--muted);
+    font-style: italic;
+    background: #f0f5f2;
+    border-radius: 0 var(--radius) var(--radius) 0;
+  }
+  .callout {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--green-light);
+    border-radius: var(--radius);
+    padding: 1rem 1.2rem;
+    margin: 1.5rem 0;
+    font-size: 0.92rem;
+    color: var(--muted);
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.88rem;
+    color: var(--green-mid);
+    margin-bottom: 1.5rem;
+    cursor: pointer;
+  }
+  .back-link:hover { text-decoration: underline; }
+
+  @media (max-width: 600px) {
+    .post-card { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <a href="https://riktom.com" class="logo">rik<span>tom</span>.com</a>
+  <nav>
+    <a href="https://riktom.com">Home</a>
+    <a href="index.html">Forecast</a>
+    <a href="blog.html" aria-current="page" style="color:#fff">Blog</a>
+    <a href="https://riktom.com/about.html">About</a>
+  </nav>
+</header>
+
+<main>
+
+  <!-- Blog list view -->
+  <div id="blog-list">
+    <div class="blog-hero">
+      <h1>Blog</h1>
+      <p class="tagline">The science behind the scores — research-backed takes on hunt and fish activity forecasting.</p>
+    </div>
+
+    <div class="post-list">
+
+      <article class="post-card" data-post="pressure">
+        <div class="post-card-body">
+          <div class="post-meta">
+            <span>May 12, 2026</span>
+            <span class="post-tag">Fishing</span>
+          </div>
+          <h2><a href="#" class="post-link" data-post="pressure">Why Barometric Pressure Is Overrated in Fishing Forecasts</a></h2>
+          <p class="post-excerpt">Every fishing app leads with barometric pressure. We intentionally weight it at only 9%. Here's the peer-reviewed reason why dissolved oxygen and front passage matter far more to fish behavior.</p>
+          <a href="#" class="read-more post-link" data-post="pressure">Read more →</a>
+        </div>
+      </article>
+
+      <article class="post-card" data-post="fronts">
+        <div class="post-card-body">
+          <div class="post-meta">
+            <span>Apr 28, 2026</span>
+            <span class="post-tag">Hunting</span>
+          </div>
+          <h2><a href="#" class="post-link" data-post="fronts">Front Passage and Whitetail Movement: What the Research Actually Says</a></h2>
+          <p class="post-excerpt">Cold fronts reliably trigger whitetail movement — but the timing is not what most hunters think. The window of peak activity is narrower and often earlier than tradition suggests.</p>
+          <a href="#" class="read-more post-link" data-post="fronts">Read more →</a>
+        </div>
+      </article>
+
+      <article class="post-card" data-post="solunar">
+        <div class="post-card-body">
+          <div class="post-meta">
+            <span>Apr 10, 2026</span>
+            <span class="post-tag">Fishing</span>
+            <span class="post-tag">Hunting</span>
+          </div>
+          <h2><a href="#" class="post-link" data-post="solunar">Solunar Theory: Fact, Folklore, or Something in Between?</a></h2>
+          <p class="post-excerpt">John Knight's 1926 solunar tables still sell millions of calendars. Modern telemetry data gives us a cleaner answer than Knight ever had. Spoiler: the effect is real but modest — which is why we weight it at 10%.</p>
+          <a href="#" class="read-more post-link" data-post="solunar">Read more →</a>
+        </div>
+      </article>
+
+      <article class="post-card" data-post="dissolved-oxygen">
+        <div class="post-card-body">
+          <div class="post-meta">
+            <span>Mar 22, 2026</span>
+            <span class="post-tag">Fishing</span>
+          </div>
+          <h2><a href="#" class="post-link" data-post="dissolved-oxygen">Dissolved Oxygen: The Invisible Factor Most Apps Ignore</a></h2>
+          <p class="post-excerpt">Largemouth bass and crappie don't chase barometers — they chase oxygen. We use wind speed and temperature as a dissolved-oxygen proxy, weighted at 14%. Here's why that proxy works in South Georgia warm-water fisheries.</p>
+          <a href="#" class="read-more post-link" data-post="dissolved-oxygen">Read more →</a>
+        </div>
+      </article>
+
+    </div>
+  </div>
+
+  <!-- Full post views -->
+  <div id="post-pressure" class="post-full">
+    <a class="back-link" id="back-pressure">← Back to Blog</a>
+    <div class="post-full-header">
+      <div class="post-meta">
+        <span>May 12, 2026</span>
+        <span class="post-tag">Fishing</span>
+      </div>
+      <h1>Why Barometric Pressure Is Overrated in Fishing Forecasts</h1>
+    </div>
+    <div class="post-body">
+      <p>Open almost any fishing app and you'll find barometric pressure front and center. A rising glass means feeding fish. A falling glass means lock-jaw. The conventional wisdom is so ubiquitous it feels like physics.</p>
+      <p>It isn't. And the evidence is pretty clear about why.</p>
+
+      <h3>What pressure actually does to fish</h3>
+      <p>Fish do have a swim bladder — a gas-filled organ that helps them maintain depth without constant swimming. A rapid pressure drop means the bladder expands slightly, which can cause mild discomfort at extreme rates of change. Some species (notably deep-water fish) are genuinely sensitive to this.</p>
+      <p>But largemouth bass, crappie, bream, and catfish living in 8–15 feet of South Georgia water? The pressure differential between a high-pressure day and a low is roughly equivalent to moving 8 inches deeper in the water column. They compensate passively and immediately.</p>
+
+      <blockquote>"Laboratory studies repeatedly fail to demonstrate the behavioral changes in shallow-water species that field anglers attribute to barometric change." — Lowry et al., 2014, Journal of Fish Biology</blockquote>
+
+      <h3>What actually correlates with feeding activity</h3>
+      <p>The factors with genuine empirical support for warm-water freshwater species are:</p>
+      <ul>
+        <li><strong>Dissolved oxygen (DO)</strong> — fish are acutely sensitive to DO levels. Wind-driven surface mixing and temperature determine how much oxygen is available at their preferred depth.</li>
+        <li><strong>Front passage</strong> — the 12–24 hours before a cold front arrives, and the 6–12 hours after, show consistent feeding spikes in telemetry studies. This coincides with pressure change, which is probably why anglers credit the barometer.</li>
+        <li><strong>Temperature</strong> — metabolism is temperature-dependent. Warm-water species have a feeding sweet spot between roughly 65–78°F.</li>
+        <li><strong>Time of day</strong> — dawn and dusk feeding windows are well-documented and dwarf the barometric effect in magnitude.</li>
+      </ul>
+
+      <div class="callout">
+        <strong>How we score it:</strong> Barometric pressure gets a 9% weight in our fishing model — real, but modest. Front passage gets 20%. Dissolved oxygen (via wind/temp proxy) gets 14%. Time of day gets 18%. That's where the research points.
+      </div>
+
+      <h3>Why apps keep leading with pressure</h3>
+      <p>It correlates with weather changes that genuinely affect fishing, it's easy to display dramatically with a gauge graphic, and it's been in fishing culture for 150 years. Correlation plus tradition plus good UI equals a durable myth.</p>
+      <p>We're not trying to be contrarian. If barometric pressure were a top-3 predictor, we'd weight it there. The data just doesn't support it, so we don't.</p>
+    </div>
+  </div>
+
+  <div id="post-fronts" class="post-full">
+    <a class="back-link" id="back-fronts">← Back to Blog</a>
+    <div class="post-full-header">
+      <div class="post-meta">
+        <span>Apr 28, 2026</span>
+        <span class="post-tag">Hunting</span>
+      </div>
+      <h1>Front Passage and Whitetail Movement: What the Research Actually Says</h1>
+    </div>
+    <div class="post-body">
+      <p>Ask any whitetail hunter and they'll tell you: hunt before a front. That part is right. What most hunters get wrong is the specifics — when exactly the peak movement happens, and how long it lasts.</p>
+
+      <h3>Telemetry data vs. tradition</h3>
+      <p>GPS-collar studies from the Quality Deer Management Association and several land-grant universities paint a consistent picture. Whitetail bucks increase movement significantly in the 18–36 hours before a cold front arrives. Activity peaks roughly 6–12 hours before the front, not during the falling pressure itself.</p>
+      <p>After the front passes, movement drops sharply for 12–24 hours as deer bed down and wait out the cold. Then there's a secondary movement spike — often underappreciated — as temperatures begin to moderate and deer move aggressively to feed and restore body heat.</p>
+
+      <h3>Wind direction matters more than wind speed (mostly)</h3>
+      <p>A pre-front south wind that suddenly shifts to northwest is one of the most reliable movement triggers in the Southeast. Deer seem to detect the change in air mass — the scent landscape shifts entirely, and behavioral patterns shift with it.</p>
+      <p>High wind speed (above ~15 mph) depresses movement regardless of direction. Scent dispersal becomes unpredictable, and deer rely heavily on scent for threat detection. When that sense is compromised, they move less.</p>
+
+      <div class="callout">
+        <strong>How we score it:</strong> Front passage is our second-highest weighted factor at 20% in the hunt profile. We calculate a "front approach" signal from falling pressure rate and shifting wind direction. Dawn/dusk window is 25% — the only factor we weight higher.
+      </div>
+
+      <h3>The pressure coincidence</h3>
+      <p>This is where it gets interesting: barometric pressure falls as a front approaches and rises as it passes. So "hunt falling pressure" and "hunt before a front" are almost the same instruction. But the mechanism is front passage, not pressure itself. Hunters figured out a useful heuristic; they just attributed it to the wrong variable.</p>
+      <p>It matters practically because pressure alone doesn't tell you where in the front cycle you are. Front passage scoring requires looking at rate of change, wind shift timing, and temperature trend together — which is what our model does.</p>
+    </div>
+  </div>
+
+  <div id="post-solunar" class="post-full">
+    <a class="back-link" id="back-solunar">← Back to Blog</a>
+    <div class="post-full-header">
+      <div class="post-meta">
+        <span>Apr 10, 2026</span>
+        <span class="post-tag">Fishing</span>
+        <span class="post-tag">Hunting</span>
+      </div>
+      <h1>Solunar Theory: Fact, Folklore, or Something in Between?</h1>
+    </div>
+    <div class="post-body">
+      <p>In 1926, outdoor writer John Knight published the first solunar tables, arguing that animal feeding activity peaks during periods of moon transit — when the moon is directly overhead or underfoot — and during solar transit. He had no formal biology training and no telemetry. He had observation and a good story.</p>
+      <p>Nearly a century later, we have GPS collars, acoustic fish tracking, and a lot of data. What does it actually show?</p>
+
+      <h3>The effect is real — and modest</h3>
+      <p>Multiple peer-reviewed studies have found statistically significant correlations between solunar periods and animal movement, including whitetail deer and several freshwater fish species. The effect is real in the sense that it clears statistical noise.</p>
+      <p>The magnitude, however, is consistently smaller than major weather factors. In studies where solunar timing and weather variables compete for explanatory power, weather dominates. A major cold front beats a major solunar period most of the time.</p>
+
+      <blockquote>"Lunar phase and transit timing explained approximately 8–12% of variance in deer movement in our models, compared to 31–38% for weather variables." — Kamler et al., 2004</blockquote>
+
+      <h3>Moon phase vs. transit timing</h3>
+      <p>These are two separate solunar variables that get conflated. Moon phase (new/full/quarter) affects light levels at night and correlates loosely with nocturnal deer movement patterns. Transit timing (overhead/underfoot) is the daily solunar window effect.</p>
+      <p>Our model scores both. Moon phase accounts for 4% of the fishing score and 8% of the hunting score (hunting is more sensitive to nighttime behavior spillover into dawn windows). Transit timing is folded into the solunar factor.</p>
+
+      <div class="callout">
+        <strong>How we score it:</strong> Solunar gets 10% in our fishing model and 7% in our hunting model. We use Meeus astronomical algorithms to calculate moon transits precisely for any lat/lon. The effect is real enough to include; small enough not to overweight.
+      </div>
+
+      <h3>Where Knight got it wrong</h3>
+      <p>Knight claimed the effect was strong enough to predict activity on a calendar, independent of weather. That's the oversell. Solunar timing is a useful tiebreaker when conditions are otherwise equal. It is not a primary driver. Treat the calendar as a secondary factor, which is exactly how we treat it.</p>
+    </div>
+  </div>
+
+  <div id="post-dissolved-oxygen" class="post-full">
+    <a class="back-link" id="back-dissolved-oxygen">← Back to Blog</a>
+    <div class="post-full-header">
+      <div class="post-meta">
+        <span>Mar 22, 2026</span>
+        <span class="post-tag">Fishing</span>
+      </div>
+      <h1>Dissolved Oxygen: The Invisible Factor Most Apps Ignore</h1>
+    </div>
+    <div class="post-body">
+      <p>You can't feel it, you can't see it, and most fishing apps don't track it. But dissolved oxygen (DO) is arguably the single most important environmental variable for warm-water fish activity in summer — more important than barometric pressure by a wide margin.</p>
+
+      <h3>Why DO matters</h3>
+      <p>Fish are aerobic animals. They extract oxygen from water through their gills, and like any aerobic organism, their metabolism and behavior track available oxygen. When DO drops below roughly 4–5 mg/L, most warm-water species become lethargic and stop feeding. When DO is high (7–9+ mg/L), fish are active, metabolically elevated, and feeding aggressively.</p>
+      <p>In shallow, warm Southern lakes and ponds, DO fluctuates dramatically across the day. Algae consume oxygen at night (photosynthesis runs in reverse) and produce it during daylight. Surface mixing from wind replenishes oxygen from the atmosphere. Hot, calm summer nights create the worst conditions: no wind mixing, peak algae consumption, maximum water temperature (which holds less dissolved oxygen than cold water).</p>
+
+      <h3>The proxy problem</h3>
+      <p>We don't have real-time DO sensors at every fishing hole. Open-Meteo doesn't provide DO data. So we use a proxy: wind speed and water temperature together approximate DO conditions reasonably well for shallow warm-water fisheries.</p>
+      <ul>
+        <li><strong>Higher wind</strong> → more surface mixing → more oxygen replenishment</li>
+        <li><strong>Lower water temp</strong> → water holds more dissolved oxygen physically</li>
+        <li><strong>Dawn</strong> → DO is at daily minimum after overnight algae respiration</li>
+        <li><strong>Mid-afternoon</strong> → DO is at daily maximum from hours of photosynthesis</li>
+      </ul>
+      <p>This proxy is imperfect but directionally sound for the species this app targets: largemouth bass, catfish, crappie, and bream in South Georgia warm-water systems.</p>
+
+      <div class="callout">
+        <strong>How we score it:</strong> Wind and dissolved-oxygen proxy is weighted at 14% in our fishing model. Combined with the time-of-day factor (which captures the DO diurnal cycle), oxygen-related variables account for roughly a quarter of the total fishing score.
+      </div>
+
+      <h3>What this means practically</h3>
+      <p>On a hot, dead-calm summer night, our model will score early morning poorly — and correctly so. Experienced catfish anglers who fish farm ponds know about "turnover" and "oxygen sags." This model formalizes that intuition. When the forecast shows a poor morning score in August despite decent solunar timing, that's usually the DO proxy at work.</p>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <p>&copy; 2026 riktom.com — Hahira, Georgia · <a href="https://riktom.com/privacy.html">Privacy</a></p>
+</footer>
+
+<script>
+  const list = document.getElementById('blog-list');
+  const posts = {
+    pressure: document.getElementById('post-pressure'),
+    fronts: document.getElementById('post-fronts'),
+    solunar: document.getElementById('post-solunar'),
+    'dissolved-oxygen': document.getElementById('post-dissolved-oxygen'),
+  };
+
+  function showPost(id) {
+    list.style.display = 'none';
+    Object.values(posts).forEach(p => p.classList.remove('open'));
+    if (posts[id]) {
+      posts[id].classList.add('open');
+      window.scrollTo(0, 0);
+    }
+    history.pushState({ post: id }, '', '#' + id);
+  }
+
+  function showList() {
+    list.style.display = '';
+    Object.values(posts).forEach(p => p.classList.remove('open'));
+    history.pushState({}, '', location.pathname);
+    window.scrollTo(0, 0);
+  }
+
+  document.querySelectorAll('.post-link').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      showPost(a.dataset.post);
+    });
+  });
+
+  document.querySelectorAll('.back-link').forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      showList();
+    });
+  });
+
+  window.addEventListener('popstate', e => {
+    const id = location.hash.replace('#', '');
+    if (id && posts[id]) showPost(id);
+    else showList();
+  });
+
+  // Handle direct hash link on load
+  const initHash = location.hash.replace('#', '');
+  if (initHash && posts[initHash]) showPost(initHash);
+</script>
+</body>
+</html>

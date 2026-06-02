@@ -193,6 +193,8 @@ function render(data) {
     fEl.appendChild(row);
   });
 
+  const gaEl = document.getElementById('generated-at');
+  if (gaEl && data.generated_at) gaEl.textContent = 'Data generated: ' + data.generated_at;
   $('results').hidden = false;
 }
 

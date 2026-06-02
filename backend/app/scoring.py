@@ -176,4 +176,5 @@ def build_forecast(weather: dict, profile_name: str, lon: float, hours: int = 24
         ],
         "hourly": rows,
         "best_windows": best_windows,
+        "generated_at": datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC"),
     }

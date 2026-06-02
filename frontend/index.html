@@ -6,6 +6,24 @@
 <title>Forecast — Hunt &amp; Fish Activity Predictor | riktom.com</title>
 <meta name="description" content="Research-weighted 24-hour hunt and fish activity forecast for any location. Built on weather, solunar, moon phase, and front-passage data.">
 <link rel="stylesheet" href="style.css">
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "@id": "https://forecast.riktom.com/#app",
+    "name": "Hunt and Fish Forecast",
+    "url": "https://forecast.riktom.com",
+    "description": "Research-weighted 24 to 72 hour activity forecasts for hunters and fishermen based on weather, solunar data, moon phase, and front passage.",
+    "applicationCategory": "SportApplication",
+    "operatingSystem": "Web",
+    "isAccessibleForFree": true,
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "provider": { "@id": "https://riktom.com/#org" },
+    "areaServed": { "@type": "State", "name": "Georgia" },
+    "keywords": "hunt fish forecast Georgia, solunar calendar Georgia, best fishing times Georgia, deer hunting forecast, moon phase fishing Georgia",
+    "featureList": ["24 to 72 hour activity forecast","Weather solunar moon phase front passage factors","Peak activity windows","Hourly breakdown"]
+  }
+  </script>
 </head>
 <body>
 <!-- rk-nav:start -->
@@ -121,7 +139,7 @@
     <h2>Factor Breakdown — <span id="best-hour">best hour</span></h2>
     <div id="factors" class="factors"></div>
 
-    <p class="footer-note">
+    <p class="footer-note"><span id="generated-at" style="color:#888;font-size:0.82em;"></span><br>
       Scoring methodology weights factors by peer-reviewed research, not anecdote.
       Fishing model is calibrated for South Georgia warm-water species (largemouth,
       catfish, crappie, bream). Hunting model is tuned for whitetail deer movement.
